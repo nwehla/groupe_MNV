@@ -1,0 +1,24 @@
+@startuml
+' diagramme séquenciel
+actor Client
+Client -> lecteurdeCarte: Authentification
+activate lecteurdeCarte
+lecteurdeCarte -> SIB: Verification info Client
+activate SIB
+SIB --> lecteurdeCarte: ok
+deactivate SIB
+lecteurdeCarte --> Client: Code bon
+deactivate lecteurdeCarte
+activate SIB
+SIB -> Client: choix de l'opération
+Client --> SIB: déposer de l'argent
+SIB -> SAD: demande d'autorisation de dépot d'argent
+activate SAD
+SAD -> SIB: Autorisation acceptée
+SIB --> Client: déposez votre argent
+activate Distributeur
+SAD -> Distributeur: ouvrir la trappe pour mettre l'argent
+destroy SIB
+destroy Client
+destroy SAD
+@enduml
